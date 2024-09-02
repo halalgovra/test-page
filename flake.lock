@@ -1,0 +1,45 @@
+{
+  "nodes": {
+    "astal": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1725298801,
+        "narHash": "sha256-atkULh6TggLop3ZeluuJ/yE3jNxczg7i+UrwYAF2aiM=",
+        "owner": "aylur",
+        "repo": "astal",
+        "rev": "b8acc3897f5c48a5fc4ba73921c77cae2e91598c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aylur",
+        "repo": "astal",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1716293225,
+        "narHash": "sha256-pU9ViBVE3XYb70xZx+jK6SEVphvt7xMTbm6yDIF4xPs=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "3eaeaeb6b1e08a016380c279f8846e0bd8808916",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "astal": "astal"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
