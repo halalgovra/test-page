@@ -1,5 +1,6 @@
+name: Deploy to GitHub Pages
+
 on:
-  pull_request:
   push:
     branches: [main]
 
@@ -9,18 +10,36 @@ permissions:
   id-token: write
 
 jobs:
-  gi-docgen:
-    name: Build
+  astro:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@main
+      - name: Checkout your repository using git
+        uses: actions/checkout@v4
+      - name: Install, build, and upload your site
+        uses: withastro/action@v2
+        with:
+          path: ./docs
+
+  gi-docs:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
         with:
           logger: pretty
-      - run: nix build . --print-build-logs
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Documentation
+        run: |
+          nix build .#docs --print-build-logs
 
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: result/libastal
