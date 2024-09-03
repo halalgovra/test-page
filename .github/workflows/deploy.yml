@@ -10,36 +10,32 @@ permissions:
   id-token: write
 
 jobs:
-  astro:
+  gi-docs:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository using git
-        uses: actions/checkout@v4
-      - name: Install, build, and upload your site
-        uses: withastro/action@v2
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
         with:
-          path: ./docs
+          logger: pretty
 
-  # gi-docs:
-  #   needs: astro
-  #   runs-on: ubuntu-latest
-  #   environment:
-  #     name: github-pages
-  #     url: ${{ steps.deployment.outputs.page_url }}
-  #   steps:
-  #     - name: Install Nix
-  #       uses: DeterminateSystems/nix-installer-action@main
-  #       with:
-  #         logger: pretty
-  #
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-  #
-  #     - name: Build Documentation
-  #       run: |
-  #         nix build . --print-build-logs
-  #
-  #     - name: Deploy to GitHub Pages
-  #       uses: JamesIves/github-pages-deploy-action@v4
-  #       with:
-  #         folder: result/libastal
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Documentation
+        run: nix build . --print-build-logs
+
+      - name: Set up Git configuration
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+
+      - name: Add the target repository
+        run: |
+          git remote add target-repo https://halalgovra:${{ secrets.TARGET_REPO_PAT }}@github.com/halalgovra/halalgovra.github.io.git
+
+      - name: Push to remote
+        run: |
+          cp -r result/libastal libastal
+          git add libastal
+          git commit -m "Deploy Reference"
+          git push target-repo main:main  # Adjust the branch names as needed
