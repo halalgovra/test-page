@@ -37,7 +37,7 @@ jobs:
 
       - name: Build Documentation
         run: |
-          nix build .#docs --print-build-logs
+          nix build . --print-build-logs
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
