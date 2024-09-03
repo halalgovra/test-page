@@ -21,7 +21,7 @@ jobs:
           path: ./docs
 
   gi-docs:
-    needs: build
+    needs: astro
     runs-on: ubuntu-latest
     environment:
       name: github-pages
