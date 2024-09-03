@@ -31,7 +31,7 @@ jobs:
 
       - name: Add the target repository
         run: |
-          git remote add target-repo https://halalgovra:${{ secrets.TARGET_REPO_PAT }}@github.com/halalgovra/halalgovra.github.io.git
+          git remote add target-repo https://x-access-token:${{ secrets.TARGET_REPO_PAT }}@github.com/halalgovra/halalgovra.github.io.git
 
       - name: Push to remote
         run: |
