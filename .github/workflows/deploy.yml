@@ -9,27 +9,15 @@ permissions:
   id-token: write
 
 jobs:
-  lints:
+  gi-docgen:
     name: Build
-    # runs-on: ubuntu-latest
-    # steps:
-    #   - uses: actions/checkout@v4
-    #   - uses: DeterminateSystems/nix-installer-action@main
-    #   - run: nix build .
-
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
         with:
           logger: pretty
-
-      - name: Build Documentation
-        run: |
-          nix build . --print-build-logs
+      - run: nix build . --print-build-logs
 
       - name: Deploy to GitHub Pages
         id: deployment
