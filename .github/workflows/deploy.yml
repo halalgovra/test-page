@@ -20,26 +20,26 @@ jobs:
         with:
           path: ./docs
 
-  gi-docs:
-    needs: astro
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-        with:
-          logger: pretty
-
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Build Documentation
-        run: |
-          nix build . --print-build-logs
-
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: result/libastal
+  # gi-docs:
+  #   needs: astro
+  #   runs-on: ubuntu-latest
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
+  #   steps:
+  #     - name: Install Nix
+  #       uses: DeterminateSystems/nix-installer-action@main
+  #       with:
+  #         logger: pretty
+  #
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Build Documentation
+  #       run: |
+  #         nix build . --print-build-logs
+  #
+  #     - name: Deploy to GitHub Pages
+  #       uses: JamesIves/github-pages-deploy-action@v4
+  #       with:
+  #         folder: result/libastal
