@@ -32,5 +32,5 @@ jobs:
         with:
           folder: libastal
           repository-name: halalgovra/halalgovra.github.io
-          branch: main
+          branch: gp-pages
           target-folder: libastal
