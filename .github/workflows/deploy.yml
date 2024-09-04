@@ -24,18 +24,11 @@ jobs:
       - name: Build Documentation
         run: nix build . --print-build-logs
 
-      - name: Set up Git configuration
-        run: |
-          git config --global user.name "GitHub Action"
-          git config --global user.email "action@github.com"
-
-      - name: Add the target repository
-        run: |
-          git remote add target-repo https://x-access-token:${{ secrets.TARGET_REPO_PAT }}@github.com/halalgovra/halalgovra.github.io.git
-
-      - name: Push to remote
-        run: |
-          cp -r result/libastal libastal
-          git add libastal
-          git commit -m "Deploy Reference"
-          git push target-repo main:main  # Adjust the branch names as needed
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: result/libastal
+          repository-name: halalgovra/halalgovra.github.io
+          branch: main
+          target-folder: libastal
