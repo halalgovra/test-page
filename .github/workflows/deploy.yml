@@ -22,13 +22,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Documentation
-        run: nix build . --print-build-logs
+        run: |
+          nix build . --print-build-logs
+          cp -r result/libastal libastal
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: result/libastal
+          folder: libastal
           repository-name: halalgovra/halalgovra.github.io
           branch: main
           target-folder: libastal
