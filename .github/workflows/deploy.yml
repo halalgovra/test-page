@@ -59,5 +59,6 @@ jobs:
 
       - name: Push to Pages Repo
         run: |
+          cd dist
           git commit -m "Deployed from https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
           git push origin main
