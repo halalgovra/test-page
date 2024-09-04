@@ -46,5 +46,5 @@ jobs:
           cp -r src/result/libastal dist/libastal
           cd dist
           git add .
-          git commit -m "Deployed from ${{ github.sha }}"
+          git commit -m "Deployed from https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
           git push origin main
