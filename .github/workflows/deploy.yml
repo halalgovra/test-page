@@ -43,7 +43,7 @@ jobs:
 
       - name: Clean and Copy Files
         run: |
-          rm -r dist/libastal
+          rm -rf dist/libastal
           cp -r src/result/libastal dist/libastal
 
       - name: Check for Changes
