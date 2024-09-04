@@ -18,19 +18,33 @@ jobs:
         with:
           logger: pretty
 
-      - name: Checkout
+      - name: Checkout Source Repository
         uses: actions/checkout@v4
+        with:
+          path: src
 
       - name: Build Documentation
         run: |
+          cd src
           nix build . --print-build-logs
-          cp -r result/libastal libastal
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Checkout Destination Repo
+        uses: actions/checkout@v4
         with:
-          folder: libastal
-          repository-name: halalgovra/halalgovra.github.io
-          branch: gp-pages
-          target-folder: libastal
+          token: ${{ secrets.token }}
+          repository: halalgovra/halalgovra.github.io
+          ref: main
+          path: dist
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "GitHub Actions Bot"
+
+      - name: Deploy to Pages Repo
+        run: |
+          cp -r src/result/libastal dist/libastal
+          cd dist
+          git add .
+          git commit -m "Deployed from ${{ github.sha }}"
+          git push origin main
